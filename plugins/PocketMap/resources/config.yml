@@ -1,0 +1,98 @@
+# the config.yml version DO NOT CHANGE
+version: 1.7
+
+# Settings for the renderer
+renderer:
+  # Settings for the chunk renderer
+  # The chunk renderer manages when a chunk is added to the scheduler
+  chunk-scheduler:
+    # in which interval in ticks the chunk scheduler will run
+    # Default: 10
+    run-period: 10
+    # the cooldown in seconds a chunk is not updated when there are updates inside the chunk
+    # Default: 60
+    chunk-cooldown: 60
+    # How many chunks there can be yielded from a generator
+    # This is used for rendering full worlds, the generator yields all chunks inside the world
+    # The best is to yield a bit more than the scheduler can handle simultaneously
+    # Default: 16
+    generator-yield: 32
+    # The amount of chunks the chunk loader can load in a single run
+    # Due to optimizations, changing this value does not change the expected behaviour.
+    # Default: 128
+    chunks-per-run: 128
+    # Max amount of chunks that can be queued at the same time
+    queue-size: 256
+
+  scheduler:
+    # in which interval in ticks the chunk renderer will run
+    # Default: 5
+    run-period: 5
+    # the amount of simultaneous renders
+    # A render is the image that is generated
+    # Default: 8
+    renders: 8
+    # The queue size of the scheduler
+    # Default: 32
+    queue-size: 32
+
+
+# Settings for the web server
+# The web server will be accessible at 'http://<address>:<port>/'.
+web-server:
+  # Address of the web server.
+  # Only change this when needed.
+  # Default: "0.0.0.0"
+  address: "0.0.0.0"
+  # Port of the web server.
+  # Set this to the port you want to use for the web server
+  # Default: 3000
+  port: 3000
+
+# Settings for the PocketMap API used for the website
+api:
+  # The interval in tick in which the API will be updated
+  update-period: 20
+
+  # List of worlds that are visible on the map.
+  # If an empty list is given, all worlds will be displayed
+  # Default: []
+  worlds: [ ]
+
+  # Settings for the visibility of players on the map
+  players:
+    # If players should be visible on the map
+    # Default: true
+    visible: true
+    # Make the y coordinate of the player visible via the API
+    # Default: false
+    show-y-coord: false
+    # List of worlds where players should always be hidden
+    # If show-players is true but the player is in one of these worlds, the player is not visible.
+    # Default: []
+    hide-worlds: [ ]
+    # List of players that will always be invisible on the map
+    # Default: []
+    hide-players: [ ]
+
+# Settings for the textures used in the map
+textures:
+  # The fallback block texture for when a block is not recognized.
+  # This texture will be used for e.g. custom blocks when not added to a resource pack.
+  fallback-block: "minecraft:bedrock"
+
+  # Settings for texture height overlays
+  # The height overlay will add a color over textures of an odd y-level
+  height-overlay:
+    # Which color (in hexadecimal rgb) the overlay should have
+    # Default: 0x000000 (black)
+    color: 0x000000
+    # The alpha (transparency) value of the color
+    # The higher the alpha value the better the color is visible. A low value is recommended.
+    # Set to 0 if you want to disable the overlay.
+    # Default: 3 (min: 0, max: 127)
+    alpha: 3
+
+# Enable debug settings
+# It is recommended to disable this feature because it can harm your server when not handled properly
+debug: false

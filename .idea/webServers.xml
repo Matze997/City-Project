@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="51d23022-748c-470b-abdd-a351bc4d775e" name="KVM - Privat">
+        <fileTransfer accessType="SFTP" host="37.114.34.113" port="22" sshConfigId="8c150c1b-e95c-4d3f-9434-bd53446581b6" sshConfig="root@37.114.34.113:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

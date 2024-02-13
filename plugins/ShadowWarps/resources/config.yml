@@ -1,0 +1,78 @@
+# Shadow Warps©
+# Creation: January 15, 2024 3:40pm
+# Developer: Katsuu
+
+# Delay before the teleportation in seconds
+delay: null
+
+# Message prefix
+prefix: "§f[§9Warp§f] "
+
+# No permission message
+no_perm: "{prefix}You don't have permission!"
+
+# Customize your command
+# Command:Command description
+warp_cmd: "warp:Teleport to a warp"
+
+# Command aliases
+warp_aliases: []
+
+# Warp teleport message after the player has been teleported and the countdown has ended
+warp_msg_teleport: "{prefix}You have been teleported to the warp!"
+
+# If form set to false you can edit the message list that will appear in chat
+warp_msg_list: "{prefix}here is the list of warps: {warp}"
+
+# Player has moved or canceled the teleportation
+warp_msg_cancel: "{prefix}Teleportation has been canceled!"
+
+# Countdown before the teleportation
+warp_msg_cooldown: "{prefix}The teleportation will be done in {time} seconds!"
+
+# Customize your command
+# Command:Command description
+delwarp_cmd: "delwarp:Delete a warp"
+
+# Command aliases
+delwarp_aliases: []
+
+# Message after deleting the warp
+delwarp_good: "{prefix}You have successfully removed the warp!"
+
+# Message if warp doesnt exist or misspelled
+delwarp_msg_no_exist: "{prefix}The warp does not exist!"
+
+# Message if player doesnt input a name
+delwarp_on_warp: "{prefix}You must indicate the name of a warp!"
+
+# Customize your command
+# Command:Command description
+setwarp_cmd: "setwarp:Set a warp"
+
+# Command aliases
+setwarp_aliases: []
+
+# Message after setting a warp
+setwarp_good: "{prefix}You have set the warp!"
+
+# Message if the warp doesnt exist
+setwarp_msg_exist: "{prefix}The warp already exists!"
+
+# Message if player doesnt input a name
+setwarp_on_warp: "{prefix}You must indicate the name of a warp!"
+
+# Set to "true" to enable forms to use a menu to display the list of warps
+# Set to "false" to disable forms and use chat to display the list of warps
+form: true
+
+# Title for the form menu
+title: "List of warps"
+
+# Menu content
+content: "Choose the warp you want to teleport to:"
+
+# Menu Button
+button: "{warp}"
+
+# More updates to come! Hopfully ill be able to upload this to poggit!

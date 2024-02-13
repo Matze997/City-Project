@@ -1,0 +1,11 @@
+name: City
+description: Making Matadora functional!
+api: 5.0.0
+version: 1.0.0
+main: matze\city\City
+
+permissions:
+  default.op:
+    default: op
+  default.all:
+    default: true

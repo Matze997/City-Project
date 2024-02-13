@@ -1,0 +1,29 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "City Project Ressourcepack",
+        "name": "City",
+        "uuid": "6ca7f0c8-d447-11ec-97c5-55714e837c7c",
+        "version": [
+            1,
+            0,
+            7
+        ],
+        "min_engine_version": [
+            1,
+            16,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "type": "resources",
+            "uuid": "0ca7f096-d447-11ec-97c4-370404b104f4",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        }
+    ]
+}

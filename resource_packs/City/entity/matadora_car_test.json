@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "matadora:car_test",
+      "textures": {
+        "default": "textures/entity/custom/vehicle/car_test"
+      },
+      "geometry": {
+        "default": "geometry.car_test"
+      },
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "render_controllers": [ "controller.render.default" ]
+    }
+  }
+}
