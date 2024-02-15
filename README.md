@@ -16,26 +16,26 @@ Probably yes
 But I will not take any responsibility if you have copyright problems or other legal problems
 
 # Credits
-Map built by Str8trash1:
-Planet Minecraft: https://www.planetminecraft.com/project/matadora-island-v-1/s
-YouTube: https://www.youtube.com/@str8trash1
+- Map built by Str8trash1:
+- Planet Minecraft: https://www.planetminecraft.com/project/matadora-island-v-1/s
+- YouTube: https://www.youtube.com/@str8trash1
 
 Block textures by GreenfieldMC:
-Website: https://www.greenfieldmc.net/
+- Website: https://www.greenfieldmc.net/
 
 Server Software:
-GitHub: https://github.com/pmmp/PocketMine-MP
+- GitHub: https://github.com/pmmp/PocketMine-MP
 
 Map Converter:
-GitHub: https://github.com/Amulet-Team/Amulet-Map-Editor
+- GitHub: https://github.com/Amulet-Team/Amulet-Map-Editor
 
 Plugins:
-[Customies](https://github.com/CustomiesDevs/Customies)
-[EasyEdit](https://github.com/platz1de/EasyEdit)
-[FlySpeed](https://github.com/WolfDen133/FlySpeed)
-[PocketMap](https://github.com/Hebbinkpro/PocketMap)
-[ShadowWarps](https://github.com/Katsu-MC/ShadowWarps)
-[DummyItemsBlocks](https://github.com/diamond-gold/DummyItemsBlocks)
+- [Customies](https://github.com/CustomiesDevs/Customies)
+- [EasyEdit](https://github.com/platz1de/EasyEdit)
+- [FlySpeed](https://github.com/WolfDen133/FlySpeed)
+- [PocketMap](https://github.com/Hebbinkpro/PocketMap)
+- [ShadowWarps](https://github.com/Katsu-MC/ShadowWarps)
+- [DummyItemsBlocks](https://github.com/diamond-gold/DummyItemsBlocks)
 
 # Features and pictures
 
