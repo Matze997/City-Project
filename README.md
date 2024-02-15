@@ -12,7 +12,7 @@ DO IT haha
 3. Have fun
 
 ### Can I use that for myself
-Probably yes
+Probably yes.
 But I will not take any responsibility if you have copyright problems or other legal problems
 
 # Credits
