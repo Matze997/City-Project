@@ -16,7 +16,7 @@ Probably yes
 But I will not take any responsibility if you have copyright problems or other legal problems
 
 # Credits
-- Map built by Str8trash1:
+Map built by Str8trash1:
 - Planet Minecraft: https://www.planetminecraft.com/project/matadora-island-v-1/s
 - YouTube: https://www.youtube.com/@str8trash1
 
