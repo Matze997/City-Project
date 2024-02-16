@@ -9,6 +9,9 @@ use pocketmine\math\Vector3;
 use pocketmine\world\World;
 
 class RoadConnections {
+    public const TYPE_NORMAL_CONNECTION = 0;
+    public const TYPE_LANE_CHANGE = 1;
+
     /** @var Vector3[]  */
     private array $connections = [];
     private int $id;
@@ -16,6 +19,7 @@ class RoadConnections {
     public function __construct(
         private Vector3 $vector3,
         array $connections = [],
+        private int $type = self::TYPE_NORMAL_CONNECTION,
     ){
         $this->id = RoadNetwork::$id++;
         foreach($connections as $connection) {
@@ -32,11 +36,16 @@ class RoadConnections {
         return $this->id;
     }
 
+    public function getType(): int{
+        return $this->type;
+    }
+
     public function toArray(): array {
         return [
             array_map(function(Vector3 $vector3): int {
                 return World::blockHash($vector3->getFloorX(), $vector3->getFloorY(), $vector3->getFloorZ());
             }, $this->connections),
+            $this->getType(),
         ];
     }
 

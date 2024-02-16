@@ -11,7 +11,7 @@ use pocketmine\utils\Config;
 use pocketmine\world\World;
 
 class RoadNetwork {
-    public const VERSION = "1.1.0";
+    public const VERSION = "1.2.0";
 
     /** @var RoadConnections[][]  */
     private static array $connections = [];
@@ -36,6 +36,15 @@ class RoadNetwork {
                     foreach($connections as $hash => $data) {
                         World::getBlockXYZ($hash, $x, $y, $z);
                         self::$connections[$chunkHash][$hash] = new RoadConnections(new Vector3($x, $y, $z), $data[0]);
+                    }
+                }
+                break;
+            }
+            case "1.2.0": {
+                foreach($file->get("connections", []) as $chunkHash => $connections) {
+                    foreach($connections as $hash => $data) {
+                        World::getBlockXYZ($hash, $x, $y, $z);
+                        self::$connections[$chunkHash][$hash] = new RoadConnections(new Vector3($x, $y, $z), $data[0], $data[1]);
                     }
                 }
                 break;
@@ -79,13 +88,13 @@ class RoadNetwork {
         return self::$connections[$chunkHash][$hash] ?? null;
     }
 
-    public static function addRoadMarker(Vector3 $start, Vector3 $target): void {
+    public static function addRoadMarker(Vector3 $start, Vector3 $target, int $type = RoadConnections::TYPE_NORMAL_CONNECTION): void {
         $x = $start->getFloorX();
         $z = $start->getFloorZ();
         $hash = World::blockHash($x, $start->getFloorY(), $z);
         $chunkHash = World::chunkHash($x >> 4, $z >> 4);
 
-        $connections = self::$connections[$chunkHash][$hash] ??= new RoadConnections($start->floor());
+        $connections = self::$connections[$chunkHash][$hash] ??= new RoadConnections($start->floor(), [], $type);
         $connections->add($target);
     }
 

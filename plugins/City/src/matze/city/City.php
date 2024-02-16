@@ -33,7 +33,6 @@ use pocketmine\Server;
 use pocketmine\world\ChunkLoader;
 use pocketmine\world\format\io\GlobalItemDataHandlers;
 use pocketmine\world\format\io\WritableWorldProviderManagerEntry;
-use pocketmine\world\World;
 
 class City extends PluginBase {
     public const PREFIX = "§8§l»§r§a ";
@@ -52,6 +51,10 @@ class City extends PluginBase {
     protected function onEnable(): void{
         self::$instance = $this;
         self::$chunkLoader = new class() implements ChunkLoader {};
+
+        if(self::$DEBUG) {
+            Server::getInstance()->getLogger()->warning("Debug is enabled!");
+        }
 
         $this->getScheduler()->scheduleRepeatingTask(new ClosureTask(function(): void {
             $tick = Server::getInstance()->getTick();
