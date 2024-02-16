@@ -136,6 +136,7 @@ class City extends PluginBase {
     }
 
     private function registerBullshit(): void {
+        //TODO: This error message drives me insane
         $leveldb = new WritableWorldProviderManagerEntry(LevelDB::isValid(...), fn(string $path, \Logger $logger) => new LevelDB($path, $logger), LevelDB::generate(...));
         $manager = Server::getInstance()->getWorldManager()->getProviderManager();
         $manager->setDefault($leveldb);
