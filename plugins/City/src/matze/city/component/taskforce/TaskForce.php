@@ -29,7 +29,7 @@ class TaskForce {
         $triggers = self::getTriggers(self::TYPE_FIRE_DEPARTMENT, $chunkX, $chunkZ) + 1;
         self::$triggers[self::TYPE_FIRE_DEPARTMENT][World::chunkHash($chunkX, $chunkZ)] = $triggers;
 
-        if($triggers === 1 || $triggers % 3 === 0) {
+        if($triggers % 2 === 0) {
             $connection = RoadNetwork::getRandomConnectionInRadius($position, random_int(50, 90));
             if($connection === null) {
                 self::$triggers[self::TYPE_FIRE_DEPARTMENT][World::chunkHash($chunkX, $chunkZ)] = 0;

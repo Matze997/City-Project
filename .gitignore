@@ -1,0 +1,10 @@
+crashdumps/*
+players/*
+.idea/*
+banned-ips.txt
+banned-players.txt
+server.lock
+server.log
+plugin_data/*
+white-list.txt
+plugin_list.yml

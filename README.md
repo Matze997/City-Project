@@ -33,7 +33,6 @@ Plugins:
 - [Customies](https://github.com/CustomiesDevs/Customies)
 - [EasyEdit](https://github.com/platz1de/EasyEdit)
 - [FlySpeed](https://github.com/WolfDen133/FlySpeed)
-- [PocketMap](https://github.com/Hebbinkpro/PocketMap)
 - [ShadowWarps](https://github.com/Katsu-MC/ShadowWarps)
 - [DummyItemsBlocks](https://github.com/diamond-gold/DummyItemsBlocks)
 

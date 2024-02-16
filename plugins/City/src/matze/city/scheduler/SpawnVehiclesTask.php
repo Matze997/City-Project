@@ -48,6 +48,9 @@ class SpawnVehiclesTask extends Task {
             if($player->getWorld()->getNearestEntity($position, 20, Player::class) instanceof Player) {
                 continue;
             }
+            if($player->getWorld()->getNearestEntity($position, 10, VehicleEntity::class) instanceof VehicleEntity) {
+                continue;
+            }
 
             $location = Location::fromObject($connection->getVector3(), $player->getWorld(), 0, 0);
             (new VehicleEntity($location))->spawnToAll();
