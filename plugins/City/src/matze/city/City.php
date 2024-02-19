@@ -6,6 +6,7 @@ namespace matze\city;
 
 use customiesdevs\customies\entity\CustomiesEntityFactory;
 use matze\city\command\tool\PlaySoundCommand;
+use matze\city\command\tool\RenderRoadNetwork;
 use matze\city\command\tool\TestCommand;
 use matze\city\component\vehicle\VehicleEntity;
 use matze\city\item\vanilla\FilledMap;
@@ -114,6 +115,7 @@ class City extends PluginBase {
             // Tool
             new PlaySoundCommand(),
             new TestCommand(),
+            new RenderRoadNetwork(),
         ]);
     }
 

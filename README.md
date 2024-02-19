@@ -50,6 +50,9 @@ Matadora City
 Traffic Jam
 ![grafik](https://github.com/Matze997/City-Project/assets/47496465/5738f1e5-89e5-4e1b-9873-fc8e4b88b251)
 
+Current road network
+![grafik](https://github.com/Matze997/City-Project/data/road_network.png)
+
 
 # Videos
 - [Street Mapping Tool - Matadora City | Development Showcase](https://youtu.be/ttNvqIH9OBI?si=ZHDR-x8IBPQ45lUo)
