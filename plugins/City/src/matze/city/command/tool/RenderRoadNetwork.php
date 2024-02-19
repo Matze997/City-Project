@@ -67,6 +67,7 @@ class RenderRoadNetworkTask extends AsyncTask {
 
         $white = imagecolorallocate($image, 255, 255, 255);
         $green = imagecolorallocate($image, 0, 255, 0);
+        $blue = imagecolorallocate($image, 0, 0, 255);
 
         $connections = [];
         foreach(RoadNetwork::getAll() as $connection) {
@@ -90,6 +91,7 @@ class RenderRoadNetworkTask extends AsyncTask {
             foreach($connection->getAll() as $target) {
                 imageline($image, $vector3->getFloorX() + $xOffset, $vector3->getFloorZ() + $zOffset, $target->getFloorX() + $xOffset, $target->getFloorZ() + $zOffset, $color);
             }
+            imageellipse($image, $vector3->getFloorX() + $xOffset, $vector3->getFloorZ() + $zOffset, 2, 2, $blue);
         }
         imagepng($image, City::getDataPath()."road_network.png");
         imagedestroy($image);
