@@ -17,7 +17,6 @@ use pocketmine\network\mcpe\protocol\types\MapDecoration;
 use pocketmine\network\mcpe\protocol\types\MapTrackedObject;
 use pocketmine\utils\Binary;
 
-
 // Stolen from https://github.com/J1b1x/MapVideo/blob/master/src/Jibix/MapVideo/util/CustomMapItemDataPacket.php
 class CustomMapItemDataPacket extends DataPacket implements ClientboundPacket{
 

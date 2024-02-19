@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace matze\item;
 
-use Closure;
 use matze\item\action\AttackEntityAction;
-use pocketmine\item\Item;
-use pocketmine\player\Player;
 use matze\item\action\ConsumeItemAction;
 use matze\item\action\DropItemAction;
 use matze\item\action\HeldItemAction;
@@ -16,6 +13,8 @@ use matze\item\action\InteractItemAction;
 use matze\item\action\ItemAction;
 use matze\item\action\TickAction;
 use matze\item\action\UnheldItemAction;
+use pocketmine\item\Item;
+use pocketmine\player\Player;
 
 abstract class ModifiedItem {
     protected string $id;

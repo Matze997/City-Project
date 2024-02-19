@@ -7,6 +7,9 @@ namespace matze\city\util;
 use pocketmine\math\Vector3;
 
 class VectorUtils {
+    /**
+     * @return Vector3[]
+     */
     public static function getPositionsBetween(Vector3 $v1, Vector3 $v2): array {
         $distance = $v1->distance($v2);
         if($distance <= 1) {
@@ -28,6 +31,11 @@ class VectorUtils {
             $positions[] = clone $position;
         }
         return $positions;
+    }
+
+    public static function getRandomPositionBetween(Vector3 $v1, Vector3 $v2): Vector3 {
+        $positions = self::getPositionsBetween($v1, $v2);
+        return $positions[array_rand($positions)];//Could be optimized but I´m too lazy atm
     }
 
     public static function getYaw(Vector3 $v1, Vector3 $v2): float {

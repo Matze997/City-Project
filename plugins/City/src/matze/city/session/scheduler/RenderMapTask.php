@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace matze\city\session\scheduler;
 
 use matze\city\City;
-use matze\city\network\packet\CustomMapItemDataPacket;
-use matze\city\session\Session;
 use pmmp\thread\ThreadSafeArray;
 use pocketmine\block\Block;
 use pocketmine\block\Flower;
@@ -18,7 +16,6 @@ use pocketmine\block\VanillaBlocks;
 use pocketmine\color\Color;
 use pocketmine\math\Facing;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\types\MapImage;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 use pocketmine\utils\Binary;

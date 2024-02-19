@@ -6,12 +6,9 @@ namespace matze\city\session;
 
 use matze\city\component\vehicle\controller\TaskForceController;
 use matze\city\component\vehicle\VehicleEntity;
-use matze\city\item\vanilla\FilledMap;
-use matze\city\session\scheduler\RenderMapTask;
 use matze\city\session\scheduler\SessionScheduler;
 use matze\city\tool\streetmapper\player\StreetMappingSession;
 use matze\city\world\sound\PlaySound;
-use pocketmine\block\RuntimeBlockStateRegistry;
 use pocketmine\entity\Entity;
 use pocketmine\math\Vector3;
 use pocketmine\player\Player;

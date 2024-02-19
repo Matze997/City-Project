@@ -7,6 +7,7 @@ namespace matze\city\component\vehicle\controller;
 use matze\city\City;
 use matze\city\component\vehicle\VehicleEntity;
 use matze\city\tool\streetmapper\RoadNetwork;
+use matze\city\tool\streetmapper\util\RoadConnections;
 use matze\city\util\VectorUtils;
 use pocketmine\color\Color;
 use pocketmine\entity\Entity;
@@ -14,16 +15,20 @@ use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
 use pocketmine\player\Player;
 use pocketmine\Server;
+use pocketmine\world\particle\CriticalParticle;
 use pocketmine\world\particle\DustParticle;
 
 class EntityController extends Controller {
-    public const SPEED = 0.5;
-
     protected int $lastConnection = -1;
     protected ?Vector3 $targetPosition;
     protected int $targetId = -1;
 
+    protected ?Vector3 $laneSwitchPoint = null;
+    protected bool $switched = false;
+
     protected Vector3 $motion;
+
+    protected float $speed;
 
     public function __construct(){
         $this->targetPosition = new Vector3(0, 0, 0);
@@ -34,35 +39,67 @@ class EntityController extends Controller {
         return $vehicle->isCrashed() ? 75 : 200;
     }
 
+    public function getSpeed(): float {
+        return $this->speed ??= (0.4 + ((0.4 * random_int(0, 100)) / 100));
+    }
+
     public function update(VehicleEntity $vehicle, int $tick): void{
+        if(!$this->doGenericChecks($vehicle)) {
+            return;
+        }
+
+        if($this->laneSwitchPoint !== null) {
+            $vehicle->getWorld()->addParticle($this->laneSwitchPoint, new CriticalParticle());
+            $vehicle->getWorld()->addParticle($this->laneSwitchPoint->add(0, 0.5, 0), new CriticalParticle());
+            $vehicle->getWorld()->addParticle($this->laneSwitchPoint->add(0, 1, 0), new CriticalParticle());
+        }
+
+        $updateRotation = false;
+        $position = $vehicle->getPosition();
+        $connections = RoadNetwork::getRoadMarkerConnections($position);
+        if($connections !== null && ($this->targetId === -1 || $connections->getId() === $this->targetId)) {
+            $target = $connections->random();
+            if($target === null) {
+                return;
+            }
+            $this->laneSwitchPoint = null;
+            switch($connections->getType()) {
+                case RoadConnections::TYPE_LANE_CHANGE: {
+                    //We don´t need the lane switch "special" mechanic when the road points are near enough
+                    if($position->distanceSquared($target) > 225) {//15 Blocks
+                        $lane = $connections->getRandomLane();
+                        if(!$lane->end->equals($target->floor())) {
+                            $this->laneSwitchPoint = VectorUtils::getRandomPositionBetween($lane->start->add(0.5, 0, 0.5), $lane->end->add(0.5, 0, 0.5))->floor();
+                        }
+                        $this->targetId = RoadNetwork::getRoadMarkerConnections($lane->end)?->getId() ?? -1;
+                    }
+                    break;
+                }
+                default: {
+                    $this->targetId = RoadNetwork::getRoadMarkerConnections($target)?->getId() ?? -1;
+                }
+            }
+            $this->targetPosition = $target;
+            $updateRotation = true;
+        }
+        $this->followTargetPosition($vehicle, $updateRotation);
+    }
+
+    protected function doGenericChecks(VehicleEntity $vehicle): bool {
         $position = $vehicle->getLocation();
         $world = $position->getWorld();
         if($world->getNearestEntity($position, $this->getDespawnRange($vehicle), Player::class) === null) {
             $vehicle->flagForDespawn();
-            return;
+            return false;
         }
 
         if($vehicle->isCrashed()) {
             if(!$vehicle->isOnFire()){
                 $vehicle->flagForDespawn();
             }
-            return;
+            return false;
         }
-
-        $updateRotation = false;
-        $connections = RoadNetwork::getRoadMarkerConnections($position);
-        if($connections !== null && ($this->targetId === -1 || $connections->getId() === $this->targetId)) {
-            $target = $connections->random();
-            if($target === null) {
-                $this->targetPosition = null;
-            } elseif($this->lastConnection !== $connections->getId()) {
-                $this->lastConnection = $connections->getId();
-                $this->targetId = RoadNetwork::getRoadMarkerConnections($target)?->getId() ?? -1;
-                $this->targetPosition = $target;
-                $updateRotation = true;
-            }
-        }
-        $this->followTargetPosition($vehicle, $updateRotation);
+        return true;
     }
 
     protected function followTargetPosition(VehicleEntity $vehicle, bool $updateRotation): void {
@@ -71,10 +108,25 @@ class EntityController extends Controller {
         if($this->targetPosition === null) {
             return;
         }
+
+        if($this->laneSwitchPoint !== null) {
+            $distance = $this->laneSwitchPoint->withComponents(null, 0, null)->distanceSquared($position->withComponents(null, 0, null));
+            if($distance < 0.25) {
+                $this->targetPosition = (RoadNetwork::getConnectionById($this->targetId)?->getVector3() ?? Vector3::zero())->add(0.5, 0, 0.5);
+                $this->laneSwitchPoint = null;
+                $updateRotation = true;
+                $this->switched = false;
+            } elseif(!$this->switched && $distance < 100 && !$this->targetPosition->floor()->equals($this->laneSwitchPoint->floor())) {
+                $this->targetPosition = $this->laneSwitchPoint->withComponents(null, 0, null);
+                $this->switched = true;
+                $updateRotation = true;
+            }
+        }
+
         if($updateRotation || (Server::getInstance()->getTick() + $vehicle->getId()) % 20 === 0) {
             $vehicle->setRotation(VectorUtils::getYaw($this->targetPosition, $position), 0);
             $dirVec = $vehicle->getDirectionVector()->withComponents(null, 0, null);
-            $this->motion = $dirVec->multiply($this::SPEED);
+            $this->motion = $dirVec->multiply($this->getSpeed());
         } else {
             $dirVec = $vehicle->getDirectionVector()->withComponents(null, 0, null);
         }
@@ -86,6 +138,7 @@ class EntityController extends Controller {
             return $this->isValidEntity($entity, $vehicle);
         });
         if(count($entities) > 0) {
+            //TODO: Improve collision check
             $v1 = $front->add(-1, -0.5, -1);
             $v2 = $front->add(1, 2, 1);
 

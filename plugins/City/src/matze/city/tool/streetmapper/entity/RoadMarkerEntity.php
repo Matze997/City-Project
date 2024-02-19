@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace matze\city\tool\streetmapper\entity;
 
 use matze\city\tool\streetmapper\RoadNetwork;
+use matze\city\tool\streetmapper\util\RoadConnections;
 use matze\city\util\VectorUtils;
-use pocketmine\block\VanillaBlocks;
 use pocketmine\color\Color;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntitySizeInfo;
@@ -16,6 +16,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 use pocketmine\player\Player;
+use pocketmine\utils\TextFormat;
 use pocketmine\world\particle\DustParticle;
 
 class RoadMarkerEntity extends Entity {
@@ -49,7 +50,10 @@ class RoadMarkerEntity extends Entity {
         if($connections === null) {
             return true;
         }
-        $this->setNameTag("§r§l§a".count($connections->getAll()));
+        $this->setNameTag("§r§l".(match ($connections->getType()) {
+            RoadConnections::TYPE_LANE_CHANGE => "§1",
+            default => "§a"
+        }).count($connections->getAll()).TextFormat::EOL."§r§l§a".count($connections->getParentConnections()));
 
         $player = $this->getWorld()->getNearestEntity($this->getPosition(), 20, Player::class);
         if($player instanceof Player) {

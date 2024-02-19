@@ -55,6 +55,7 @@ Traffic Jam
 - [Street Mapping Tool - Matadora City | Development Showcase](https://youtu.be/ttNvqIH9OBI?si=ZHDR-x8IBPQ45lUo)
 - [Street Pathfinding - Matadora City | Development Showcase](https://youtu.be/h6qNuXSMZ_U?si=N_1DnkxhVomGM44h)
 - [First Task Force Tests - Matadora City | Development Showcase](https://youtu.be/uwszgdeYnRA?si=wWRUkw2QJvzDghiM)
+- [Lane Switching - Matadora City | Development Showcase](https://youtu.be/RpQi_wBmDfA?si=g7w7aeTZvs_msHWQ)
 
 # Commands
 

@@ -9,8 +9,6 @@ use matze\city\tool\streetmapper\pathfinder\Node;
 use matze\city\tool\streetmapper\pathfinder\result\PathResult;
 use matze\city\tool\streetmapper\RoadNetwork;
 use pocketmine\math\Vector3;
-use pocketmine\player\Player;
-use pocketmine\world\particle\HappyVillagerParticle;
 
 class PathfinderController extends EntityController {
     public function __construct(
@@ -22,24 +20,15 @@ class PathfinderController extends EntityController {
     }
 
     public function update(VehicleEntity $vehicle, int $tick): void{
-        $position = $vehicle->getLocation();
-        $world = $position->getWorld();
-
-        if($world->getNearestEntity($position, $this->getDespawnRange($vehicle), Player::class) === null) {
-            $vehicle->flagForDespawn();
-            return;
-        }
-        if($vehicle->isCrashed()) {
-            if(!$vehicle->isOnFire()){
-                $vehicle->flagForDespawn();
-            }
+        if(!$this->doGenericChecks($vehicle)) {
             return;
         }
 
         $updateRotation = false;
-        $connections = RoadNetwork::getRoadMarkerConnections($position);
+        $connections = RoadNetwork::getRoadMarkerConnections($vehicle->getPosition());
         if($connections !== null && ($this->targetId === -1 || $connections->getId() === $this->targetId)) {
             $target = $this->result->shiftNode();
+            //TODO: Implement lane switching
             if($target === null) {
                 $this->targetPosition = null;
                 $vehicle->setMotion(Vector3::zero());

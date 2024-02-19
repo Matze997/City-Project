@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace matze\city\component\vehicle\controller;
 
 use matze\city\component\vehicle\VehicleEntity;
-use pocketmine\math\Facing;
 use pocketmine\math\Vector3;
 
 abstract class Controller {

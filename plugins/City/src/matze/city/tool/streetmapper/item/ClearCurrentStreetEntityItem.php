@@ -12,7 +12,6 @@ use matze\item\action\ItemAction;
 use matze\item\ModifiedItem;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\item\Item;
-use pocketmine\item\VanillaItems;
 
 class ClearCurrentStreetEntityItem extends ModifiedItem {
     protected function getInitialItem(): Item{

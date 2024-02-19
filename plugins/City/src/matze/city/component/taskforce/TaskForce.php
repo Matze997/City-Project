@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace matze\city\component\taskforce;
 
-use matze\city\component\vehicle\controller\PathfinderController;
 use matze\city\component\vehicle\controller\TaskForceController;
 use matze\city\component\vehicle\VehicleEntity;
 use matze\city\tool\streetmapper\pathfinder\result\PathResult;

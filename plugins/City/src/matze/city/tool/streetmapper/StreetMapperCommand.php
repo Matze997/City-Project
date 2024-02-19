@@ -6,6 +6,7 @@ namespace matze\city\tool\streetmapper;
 
 use matze\city\City;
 use matze\city\command\BaseCommand;
+use matze\city\tool\streetmapper\item\AddLaneSwitchMarkerItem;
 use matze\city\tool\streetmapper\item\AddRoadMarkerItem;
 use matze\city\tool\streetmapper\item\ClearCurrentStreetEntityItem;
 use matze\city\tool\streetmapper\item\RemoveRoadMarkerItem;
@@ -32,6 +33,7 @@ class StreetMapperCommand extends BaseCommand {
                 AddRoadMarkerItem::give($sender);
                 ClearCurrentStreetEntityItem::give($sender);
                 RemoveRoadMarkerItem::give($sender);
+                AddLaneSwitchMarkerItem::give($sender);
             }
         }
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace matze\city\tool\streetmapper\pathfinder;
 
-use matze\city\component\vehicle\VehicleEntity;
 use matze\city\tool\streetmapper\pathfinder\result\PathResult;
 use matze\city\tool\streetmapper\RoadNetwork;
 use matze\city\util\VectorUtils;
@@ -99,9 +98,20 @@ class StreetPathfinder extends AsyncTask {
             }
 
             $connections = RoadNetwork::getRoadMarkerConnections($currentNode);
-            if($connections !== null && count($connections->getAll()) > 0) {
+            if($connections !== null) {
+                $positions = [];
+                foreach($connections->getAll() as $vector3) {
+                    $positions[World::blockHash($vector3->getFloorX(), $vector3->getFloorY(), $vector3->getFloorZ())] = $vector3;
+                }
+                foreach($connections->getLanes() as $vector3) {
+                    $positions[World::blockHash($vector3->getFloorX(), $vector3->getFloorY(), $vector3->getFloorZ())] = $vector3;
+                }
+                if(count($positions) <= 0) {
+                    continue;
+                }
+
                 // Pathfinding through road connections
-                foreach($connections->getAll() as $connection) {
+                foreach($positions as $connection) {
                     $node = Node::fromVector3($connection);
                     if(isset($closedList[$node->getHash()])) {
                         continue;

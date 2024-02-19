@@ -11,12 +11,14 @@ use pocketmine\math\Vector3;
 use pocketmine\world\particle\DustParticle;
 
 class TaskForceController extends PathfinderController {
-    public const SPEED = 0.9;
-
     protected int $waitTicks = 0;
 
     public function getDespawnRange(VehicleEntity $vehicle): int{
         return 300;
+    }
+
+    public function getSpeed(): float{
+        return 0.9;
     }
 
     public function update(VehicleEntity $vehicle, int $tick): void{

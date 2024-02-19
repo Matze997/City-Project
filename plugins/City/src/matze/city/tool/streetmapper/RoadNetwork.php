@@ -11,10 +11,12 @@ use pocketmine\utils\Config;
 use pocketmine\world\World;
 
 class RoadNetwork {
-    public const VERSION = "1.2.0";
+    public const VERSION = "1.3.0";
 
     /** @var RoadConnections[][]  */
     private static array $connections = [];
+    /** @var RoadConnections[]  */
+    private static array $idConnectionsCache = [];
 
     public static int $id = 0;
 
@@ -49,10 +51,22 @@ class RoadNetwork {
                 }
                 break;
             }
+            case "1.3.0": {
+                foreach($file->get("connections", []) as $chunkHash => $connections) {
+                    foreach($connections as $hash => $data) {
+                        World::getBlockXYZ($hash, $x, $y, $z);
+                        self::$connections[$chunkHash][$hash] = new RoadConnections(new Vector3($x, $y, $z), $data[0], $data[1], $data[2]);
+                    }
+                }
+                break;
+            }
             default: {
                 City::getInstance()->getLogger()->warning("Could not load road network. Version ".$version." does not exist!");
                 return;
             }
+        }
+        foreach(self::getAll() as $connections) {
+            $connections->calculateParentConnections();
         }
     }
 
@@ -76,8 +90,33 @@ class RoadNetwork {
     /**
      * @return RoadConnections[]
      */
+    public static function getAll(): array{
+        $connections = [];
+        foreach(self::$connections as $chunkHash => $list) {
+            foreach($list as $hash => $connection) {
+                $connections[] = $connection;
+            }
+        }
+        return $connections;
+    }
+
+    /**
+     * @return RoadConnections[]
+     */
     public static function getConnectionsByChunk(int $chunkX, int $chunkZ): array {
         return self::$connections[World::chunkHash($chunkX, $chunkZ)] ?? [];
+    }
+
+    public static function getConnectionById(int $id): ?RoadConnections {
+        if(isset(self::$idConnectionsCache[$id])) {
+            return self::$idConnectionsCache[$id];
+        }
+        foreach(self::getAll() as $connections) {
+            if($connections->getId() === $id) {
+                return (self::$idConnectionsCache[$id] = $connections);
+            }
+        }
+        return null;
     }
 
     public static function getRoadMarkerConnections(Vector3 $vector3): ?RoadConnections {

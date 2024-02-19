@@ -9,5 +9,5 @@ class VanillaSounds {
     public const RANDOM_LEVELUP = "random.levelup";
     public const RANDOM_CLICK = "random.click";
 
-    public const NOTE_BASS = "note_bass";
+    public const NOTE_BASS = "note.bass";
 }

@@ -6,6 +6,7 @@ namespace matze\city\tool\streetmapper;
 
 use matze\city\City;
 use matze\city\tool\streetmapper\entity\RoadMarkerEntity;
+use matze\city\tool\streetmapper\item\AddLaneSwitchMarkerItem;
 use matze\city\tool\streetmapper\item\AddRoadMarkerItem;
 use matze\city\tool\streetmapper\item\ClearCurrentStreetEntityItem;
 use matze\city\tool\streetmapper\item\RemoveRoadMarkerItem;
@@ -20,6 +21,7 @@ class StreetMapperTool {
         ModifiedItemManager::register(new AddRoadMarkerItem());
         ModifiedItemManager::register(new ClearCurrentStreetEntityItem());
         ModifiedItemManager::register(new RemoveRoadMarkerItem());
+        ModifiedItemManager::register(new AddLaneSwitchMarkerItem());
 
         RoadNetwork::load();
 
