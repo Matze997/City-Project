@@ -25,6 +25,7 @@ class EntityController extends Controller {
 
     protected ?Vector3 $laneSwitchPoint = null;
     protected bool $switched = false;
+    protected float $laneSwitchDistance = 0.0;
 
     protected Vector3 $motion;
 
@@ -70,10 +71,11 @@ class EntityController extends Controller {
                         $lane = $connections->getRandomLane();
                         if(!$lane->end->equals($target->floor())) {
                             $this->laneSwitchPoint = VectorUtils::getRandomPositionBetween($lane->start->add(0.5, 0, 0.5), $lane->end->add(0.5, 0, 0.5))->floor();
+                            $this->laneSwitchDistance = ($lane->end->distance($target) + random_int(10, 20)) ** 2;
                         }
                         $this->targetId = RoadNetwork::getRoadMarkerConnections($lane->end)?->getId() ?? -1;
+                        break;
                     }
-                    break;
                 }
                 default: {
                     $this->targetId = RoadNetwork::getRoadMarkerConnections($target)?->getId() ?? -1;
@@ -116,7 +118,7 @@ class EntityController extends Controller {
                 $this->laneSwitchPoint = null;
                 $updateRotation = true;
                 $this->switched = false;
-            } elseif(!$this->switched && $distance < 100 && !$this->targetPosition->floor()->equals($this->laneSwitchPoint->floor())) {
+            } elseif(!$this->switched && $distance < $this->laneSwitchDistance && !$this->targetPosition->floor()->equals($this->laneSwitchPoint->floor())) {
                 $this->targetPosition = $this->laneSwitchPoint->withComponents(null, 0, null);
                 $this->switched = true;
                 $updateRotation = true;

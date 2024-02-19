@@ -135,6 +135,10 @@ class RoadNetwork {
 
         $connections = self::$connections[$chunkHash][$hash] ??= new RoadConnections($start->floor(), [], $type);
         $connections->add($target);
+
+        foreach(self::getAll() as $connections) {
+            $connections->calculateParentConnections();
+        }
     }
 
     public static function removeRoadMarker(Vector3 $vector3): void {
@@ -154,6 +158,10 @@ class RoadNetwork {
         $hash = World::blockHash($x, $vector3->getFloorY(), $z);
         $chunkHash = World::chunkHash($x >> 4, $z >> 4);
         unset(self::$connections[$chunkHash][$hash]);
+
+        foreach(self::getAll() as $connections) {
+            $connections->calculateParentConnections();
+        }
     }
 
     public static function getRandomConnectionInRadius(Vector3 $center, int $radius): ?RoadConnections {

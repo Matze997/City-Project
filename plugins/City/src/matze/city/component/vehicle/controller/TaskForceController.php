@@ -26,8 +26,10 @@ class TaskForceController extends PathfinderController {
 
         if($vehicle->getPosition()->distanceSquared($this->target) <= (6 ** 2)) {
             $vehicle->motion(Vector3::zero());
+
+            $crashed = $vehicle->getWorld()->getNearbyEntities($vehicle->getBoundingBox()->expandedCopy(10, 10, 10));
             if(++$this->waitTicks > (20 * 30)) {
-                foreach($vehicle->getWorld()->getNearbyEntities($vehicle->getBoundingBox()->expandedCopy(10, 10, 10)) as $entity) {
+                foreach($crashed as $entity) {
                     if($entity instanceof VehicleEntity && $entity->isCrashed()) {
                         $entity->flagForDespawn();
                     }
@@ -42,6 +44,8 @@ class TaskForceController extends PathfinderController {
                 } else {
                     $vehicle->flagForDespawn();
                 }
+            } elseif(count($crashed) <= 0) {
+                $vehicle->flagForDespawn();
             }
             return;
         }
